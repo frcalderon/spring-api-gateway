@@ -1,4 +1,8 @@
 FROM openjdk:11
-COPY "/target/api-gateway-0.0.1-SNAPSHOT.jar" "app.jar"
+RUN mkdir -p /app
+WORKDIR /app
+RUN git clone https://github.com/frcalderon/spring-api-gateway.git .
+RUN chmod +x mvnw
+RUN ./mvnw clean install
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "api-gateway-0.0.1-SNAPSHOT.jar"]
